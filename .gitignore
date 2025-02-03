@@ -1,3 +1,5 @@
 .venv
 .env
 API-Exploration.py
+database-testing.py
+test.db
