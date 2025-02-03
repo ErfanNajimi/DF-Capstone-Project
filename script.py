@@ -52,9 +52,6 @@ print(start_date)
 
 # Connect to API
 
-latest_comp_date = pd.read_sql("SELECT date FROM competitions ORDER BY DESC LIMIT 1")
-start_date = latest_comp_date if latest_comp_date != None else "2024/01/01"
-
 present_date = str(dt.datetime.now().date()).replace('-', '/')
 
 def make_request(url: str, auth: tuple, path : str = None, query_parameters : str = None):
