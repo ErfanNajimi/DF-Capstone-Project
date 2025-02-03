@@ -9,6 +9,8 @@
 
 Extract dancesport competition data using appropriate API. Populate database with data both historic and current. Analyse data and showcase findings in a streamlit application.
 
+The World DanceSport Federation (WDSF) launched its 'Professional Division' in 2010. Dancers within the organisation in the styles of Ballroom and Latin will eventually want to comepete at the highest level, which will be within this division. Therefore the data of interest will be restricted to finalists of competitions held within the professional division since 2010.
+
 Ideas for Comparitive Analysis:
 - TBC
 
