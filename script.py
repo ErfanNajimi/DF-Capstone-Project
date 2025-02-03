@@ -42,7 +42,7 @@ start_date = ""
 
 latest_comp_date = pd.read_sql("SELECT date FROM competitions ORDER BY date DESC LIMIT 1", conn)
 if latest_comp_date.empty:
-    start_date = "2025/01/01" 
+    start_date = "2024/01/01" 
 else: 
     start_date = latest_comp_date["date"][0]
     datetime_object = dt.datetime.strptime(start_date, '%Y/%m/%d') + dt.timedelta(days=1)
