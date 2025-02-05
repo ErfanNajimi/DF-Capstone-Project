@@ -28,13 +28,13 @@ conn = engine.connect()
 
 print('CONNECTED TO PAGILA DATABASE.')
 
-conn.execute("CREATE TABLE IF NOT EXISTS student.competitions_test (id INT PRIMARY KEY, name TEXT, city TEXT, country TEXT, date DATE, discipline VARCHAR(8));")
+conn.execute("CREATE TABLE IF NOT EXISTS student.competitions (id INT PRIMARY KEY, name TEXT, city TEXT, country TEXT, date DATE, discipline VARCHAR(8));")
 
-conn.execute("CREATE TABLE IF NOT EXISTS student.competitors_test (id INT PRIMARY KEY, first_name TEXT, second_name TEXT, sex TEXT, nationality TEXT, country TEXT, year_of_birth INT);")
+conn.execute("CREATE TABLE IF NOT EXISTS student.competitors (id INT PRIMARY KEY, first_name TEXT, second_name TEXT, sex TEXT, nationality TEXT, country TEXT, year_of_birth INT);")
 
-conn.execute("CREATE TABLE IF NOT EXISTS student.couples_test (id INT PRIMARY KEY, name TEXT, country TEXT, male_id INT NOT NULL, female_id INT NOT NULL, FOREIGN KEY (male_id) REFERENCES student.competitors_test(id), FOREIGN KEY (female_id) REFERENCES student.competitors_test(id));")
+conn.execute("CREATE TABLE IF NOT EXISTS student.couples (id INT PRIMARY KEY, name TEXT, country TEXT, male_id INT NOT NULL, female_id INT NOT NULL, FOREIGN KEY (male_id) REFERENCES student.competitors(id), FOREIGN KEY (female_id) REFERENCES student.competitors_test(id));")
 
-conn.execute("CREATE TABLE IF NOT EXISTS student.results_test (id INT PRIMARY KEY, couple_id INT NOT NULL, rank INT, competition_id INT NOT NULL, details TEXT, FOREIGN KEY (couple_id) REFERENCES student.couples_test(id), FOREIGN KEY (competition_id) REFERENCES student.competitions_test(id));")
+conn.execute("CREATE TABLE IF NOT EXISTS student.results (id INT PRIMARY KEY, couple_id INT NOT NULL, rank INT, competition_id INT NOT NULL, details TEXT, FOREIGN KEY (couple_id) REFERENCES student.couples(id), FOREIGN KEY (competition_id) REFERENCES student.competitions_test(id));")
 
 # conn.commit()
 
@@ -238,20 +238,20 @@ if competitions_df.empty != True:
     print('COMPLETE: Competitors data collected.')
 
     for competition in competitions_data:
-        conn.execute(f"INSERT INTO student.competitions_test (id, name, city, country, date, discipline) VALUES {tuple(competition)}")
+        conn.execute(f"INSERT INTO student.competitions (id, name, city, country, date, discipline) VALUES {tuple(competition)}")
 
     unique_competitor_id_list = []
 
     for competitor in competitors_data:
         if competitor[0] not in unique_competitor_id_list:
-            conn.execute(f"INSERT INTO student.competitors_test (id, first_name, second_name, sex, nationality, country, year_of_birth) VALUES {tuple(competitor)}")
+            conn.execute(f"INSERT INTO student.competitors (id, first_name, second_name, sex, nationality, country, year_of_birth) VALUES {tuple(competitor)}")
             unique_competitor_id_list.append(competitor[0])
 
     for couple in couples_data:
-        conn.execute(f"INSERT INTO student.couples_test (id, name, country, male_id, female_id) VALUES {tuple(couple)}")
+        conn.execute(f"INSERT INTO student.couples (id, name, country, male_id, female_id) VALUES {tuple(couple)}")
 
     for result in results_data:
-        conn.execute(f"INSERT INTO student.results_test (id, couple_id, rank, competition_id, details) VALUES {tuple(result)}")
+        conn.execute(f"INSERT INTO student.results (id, couple_id, rank, competition_id, details) VALUES {tuple(result)}")
 
 else:
     print('No new data to collect.')
