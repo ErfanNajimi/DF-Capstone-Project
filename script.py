@@ -32,15 +32,15 @@ conn.execute("CREATE TABLE IF NOT EXISTS student.competitions (id INT PRIMARY KE
 
 conn.execute("CREATE TABLE IF NOT EXISTS student.competitors (id INT PRIMARY KEY, first_name TEXT, second_name TEXT, sex TEXT, nationality TEXT, country TEXT, year_of_birth INT);")
 
-conn.execute("CREATE TABLE IF NOT EXISTS student.couples (id INT PRIMARY KEY, name TEXT, country TEXT, male_id INT NOT NULL, female_id INT NOT NULL, FOREIGN KEY (male_id) REFERENCES student.competitors(id), FOREIGN KEY (female_id) REFERENCES student.competitors_test(id));")
+conn.execute("CREATE TABLE IF NOT EXISTS student.couples (id INT PRIMARY KEY, name TEXT, country TEXT, male_id INT NOT NULL, female_id INT NOT NULL, FOREIGN KEY (male_id) REFERENCES student.competitors(id), FOREIGN KEY (female_id) REFERENCES student.competitors(id));")
 
-conn.execute("CREATE TABLE IF NOT EXISTS student.results (id INT PRIMARY KEY, couple_id INT NOT NULL, rank INT, competition_id INT NOT NULL, details TEXT, FOREIGN KEY (couple_id) REFERENCES student.couples(id), FOREIGN KEY (competition_id) REFERENCES student.competitions_test(id));")
+conn.execute("CREATE TABLE IF NOT EXISTS student.results (id INT PRIMARY KEY, couple_id INT NOT NULL, rank INT, competition_id INT NOT NULL, details TEXT, FOREIGN KEY (couple_id) REFERENCES student.couples(id), FOREIGN KEY (competition_id) REFERENCES student.competitions(id));")
 
 # conn.commit()
 
 start_date = "" 
 
-latest_comp_date = pd.read_sql("SELECT date FROM student.competitions_test ORDER BY date DESC LIMIT 1", conn)
+latest_comp_date = pd.read_sql("SELECT date FROM student.competitions ORDER BY date DESC LIMIT 1", conn)
 if latest_comp_date.empty:
     start_date = "2024/01/01" 
 else: 
